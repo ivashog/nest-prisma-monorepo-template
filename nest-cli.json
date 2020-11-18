@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/main-api/src",
+  "compilerOptions": {
+    "webpack": true,
+    "plugins": [
+      {
+        "name": "@nestjs/swagger/plugin",
+        "options": {
+          "introspectComments": true,
+          "classValidatorShim": true
+        }
+      }
+    ],
+    "tsConfigPath": "apps/main-api/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/main-api",
+  "projects": {
+    "main-api": {
+      "type": "application",
+      "root": "apps/main-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/main-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/main-api/tsconfig.app.json"
+      }
+    },
+    "prisma": {
+      "type": "library",
+      "root": "libs/prisma",
+      "entryFile": "index",
+      "sourceRoot": "libs/prisma/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/prisma/tsconfig.lib.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    }
+  }
+}

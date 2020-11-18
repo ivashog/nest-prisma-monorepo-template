@@ -1,0 +1,7 @@
+{
+  "migrations-dir": "./database/_pgmigrations",
+  "migrations-table": "_pgmigrations",
+  "migration-file-language": "ts",
+  "decamelize": false,
+  "tsconfig": "./tsconfig.json"
+}

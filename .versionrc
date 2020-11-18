@@ -1,0 +1,14 @@
+{
+  "types": [
+    { "type": "feat", "section":"Features ⭐️" },
+    { "type": "fix", "section": "Bug Fixes \uD83D\uDC1B" },
+    { "type": "refactor", "section": "Refactoring ♻" },
+    { "type": "perf", "section": "Performance \uD83D\uDE80" },
+    { "type": "test", "section": "Tests \uD83E\uDDEA" },
+    { "type": "ci", "section": "CI, Deployment and Configuration \uD83D\uDEE0" },
+    { "type": "build", "section": "Build System and Development \uD83C\uDFD7" },
+    { "type": "docs", "section": "Documentation \uD83D\uDCDD" },
+    { "type": "style", "section": "Code style \uD83C\uDF08" },
+    { "type": "chore", "hidden": true }
+  ]
+}
