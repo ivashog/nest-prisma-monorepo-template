@@ -9,4 +9,6 @@ export enum MIME {
     csv = 'text/csv',
     pdf = 'application/pdf',
     zip = 'application/zip',
+    mvt = 'application/x-protobuf',
+    html = 'text/html',
 }
