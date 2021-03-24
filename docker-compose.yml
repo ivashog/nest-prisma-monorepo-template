@@ -25,4 +25,4 @@ services:
 
 volumes:
   postgres:
-    name: election-db
+    name: app-db
