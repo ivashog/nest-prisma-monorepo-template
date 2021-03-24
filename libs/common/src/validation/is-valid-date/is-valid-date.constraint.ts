@@ -13,25 +13,23 @@ export class IsValidDateConstraint implements ValidatorConstraintInterface {
         const { format, allowFuture, strict, min, max } = this.getConstraintsWithDefaults(
             args.constraints,
         );
-        const parsedMomentDate = moment(date, format, strict);
-        const isValidFormat = parsedMomentDate.isValid();
+        const parsedDate = moment(date, format, strict);
+        const now = moment();
 
-        if (!isValidFormat) return false;
-
-        const parsedDate = parsedMomentDate.toDate();
+        if (!parsedDate.isValid()) return false;
 
         if (!allowFuture && !min && !max) {
-            return parsedDate <= new Date();
+            return parsedDate.isSameOrBefore(now);
         } else if (min && max) {
-            return min <= parsedDate && max >= parsedDate;
-        } else if (!allowFuture) {
-            return min
-                ? min <= parsedDate && parsedDate <= new Date()
-                : max
-                ? max >= parsedDate && parsedDate <= new Date()
-                : true;
+            return parsedDate.isBetween(min, max, undefined, '[]');
+        } else if (!allowFuture && min) {
+            return parsedDate.isBetween(min, now, undefined, '[]');
         } else {
-            return min ? min <= parsedDate : max ? max >= parsedDate : true;
+            return min
+                ? parsedDate.isSameOrAfter(min)
+                : max
+                ? parsedDate.isSameOrBefore(max)
+                : true;
         }
     }
 
@@ -40,8 +38,8 @@ export class IsValidDateConstraint implements ValidatorConstraintInterface {
         return (
             `Date '${args.value}' is invalid! ` +
             `Allowed formats: '${format}'; allowed interval: ` +
-            `from '${min ? this.formatDate(min) : 'any'}' ` +
-            `to '${max ? this.formatDate(max) : this.formatDate()}'`
+            `from '${min ? this.formatDate(min, format as string) : 'any'}' ` +
+            `to '${max ? this.formatDate(max, format as string) : this.formatDate()}'`
         );
     }
 
