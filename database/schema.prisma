@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["createMany"]
 }
 
 datasource db {
@@ -7,14 +8,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id           Int                                   @id @default(autoincrement())
-  key          String                                @unique
-  name         String?
+model Model {
+  id   Int       @id @default(autoincrement())
+  key  String    @unique
+  name String?
+  geo  GeoModel?
+
+  @@map("model")
+}
+
+model GeoModel {
+  modelId      Int                                   @unique @map("model_id")
+  model        Model                                 @relation(fields: [modelId], references: [id])
   geom         Unsupported("geometry(Point, 4326)")  @map("the_geom")
   geomMercator Unsupported("geometry(Point, 3857)")? @map("the_geom_webmercator")
 
-  @@map("test")
+  @@map("geo_model")
 }
 
 model spatial_ref_sys {
