@@ -21,5 +21,3 @@ export const roundTo = (value: number, decimals: NumberFractionDigits = 0): numb
 
 export const randomBetween = (min: number, max: number): number =>
     Math.floor(Math.random() * (max - min + 1) + min);
-
-export function NOOP() {}
