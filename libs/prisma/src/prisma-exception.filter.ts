@@ -9,12 +9,10 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { PrismaClientKnownRequestError } from '@prisma/client';
-
-import { PrismaErrorCodesEnum } from './prisma-error-codes.enum';
+import { PrismaClientKnownRequestError as PrismaError } from '@prisma/client/runtime';
 import { EnumValues } from 'enum-values';
 
-export type PrismaError = PrismaClientKnownRequestError;
+import { PrismaErrorCodesEnum } from './prisma-error-codes.enum';
 
 @Catch()
 export class PrismaExceptionFilter extends BaseExceptionFilter {
@@ -26,8 +24,7 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
         }
     }
 
-    protected isPrismaException = (err: unknown): err is PrismaError =>
-        err instanceof PrismaClientKnownRequestError;
+    protected isPrismaException = (err: unknown): err is PrismaError => err instanceof PrismaError;
 
     protected parsePrismaError = (error: PrismaError): HttpException => {
         const exceptionArguments = [
